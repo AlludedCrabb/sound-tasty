@@ -5,7 +5,7 @@ People need to eat, and there's so much variety in the available options! The pr
 I'll be using various cooking and recipe sites to get data about various foods
 
 ## The Plan
-I'll be building a database of recipe ingredients through webscraping, then I'll build a recommendation system based on the user's current food preferences.
+I'll be building a database of recipe ingredients and cooking styles through webscraping, then I'll build a recommendation system based on the user's current food preferences.
 
 ## The Preperation
 (I have not yet done any data cleaning or other preperation tasks. Stay tuned!)
