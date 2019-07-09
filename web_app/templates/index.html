@@ -67,7 +67,37 @@
     
           def show_results(response):
               if response.status==200 or response.status==0:
-                  document["result"].html = response.text
+                  result = json.loads(response.text)
+                  document["result"].html = result
+
+                  html = '''<table class="table">
+
+                      <thead>
+                          <tr>
+                              <th class="text-center">#</th>
+                              <th>Title</th>
+                              <th>Ingredients</th>
+                          </tr>
+                      </thead>
+                      <tbody>'''
+                  
+                  
+                  for i, row in enumerate(result):
+                    increds = row['Ingreds']
+                    incred = ''
+                    for word in increds:
+                      incred += word + ', '
+
+                    html += '<tr>'
+                    html += '<td>' + str(i+1) + '</td>'    
+                    html += '<td>' + row['Title'] + '</td>'
+                    html += '<td>' + incred + '</td>'
+                    html += '</tr>'
+                
+                  html += '</tbody></table>'
+              
+
+                  document["result"].html = html
               else:
                   warnings.warn(response.text)
     
@@ -83,10 +113,10 @@
     
           document["predict_button"].bind("click", get_prediction)
         </script>
-        <textarea id="user_input1">Ingredient!</textarea>
-        <textarea id="user_input2">Ingredient?</textarea>
-        <textarea id="user_input3">Ingredient...</textarea>
-        <textarea id="user_input4">Ingredient.</textarea>
+        <textarea id="user_input1"></textarea>
+        <textarea id="user_input2"></textarea>
+        <textarea id="user_input3"></textarea>
+        <textarea id="user_input4"></textarea>
         <textarea id="user_input5">Low, Medium, or High?</textarea>
         <button id="predict_button">Predict!</button>
         <div id="result"></div>
@@ -101,39 +131,3 @@
 </body>
 
 </html>
-
-<!-- 
-<html>
-  <head>
-    <title>Predict</title>
-    <script type="text/javascript" src="brython.js"></script>
-    <script type="text/javascript" src="brython_stdlib.js"></script>
-  </head>
-  <body onload="brython(1)">
-    <script type="text/python3">
-      from browser import document, ajax
-      import json
-      import warnings
-
-      def show_results(response):
-          if response.status==200 or response.status==0:
-              document["result"].html = response.text
-          else:
-              warnings.warn(response.text)
-
-      def get_prediction(ev):
-          """Get the predicted probability."""
-          req = ajax.ajax()
-          req.bind('complete', show_results)
-          req.open('POST', '/predict', True)
-          req.set_header('content-type','application/json')
-          data = json.dumps({'user_input': document['user_input'].value})
-          req.send(data)
-
-      document["predict_button"].bind("click", get_prediction)
-    </script>
-    <textarea id="user_input"></textarea>
-    <button id="predict_button">Predict!</button>
-    <div id="result"></div>
-  </body>
-</html> -->

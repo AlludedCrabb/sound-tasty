@@ -93,14 +93,19 @@ def sound_tasty(word_vec_model,
                 if x is not high_value[0]:
                     runners_up.append((x, ingred_count_dict[x]))
 
-        recipes_to_return = [title_series[high_value[0]],
-                             ingred_series[high_value[0]]]
-        run_up_recips = []
-        for i in range(len(runners_up)):
-            run_up_recips.append(title_series[runners_up[i][0]])
-            run_up_recips.append(ingred_series[runners_up[i][0]])
+        result = []
 
-        return recipes_to_return + run_up_recips
+        rec_dict = {"Title" :title_series[high_value[0]],
+                    "Ingreds" : ingred_series[high_value[0]]}
+        result.append(rec_dict)
+
+        for i in range(len(runners_up)):
+            rec_dict = {}
+            rec_dict["Title"] = title_series[runners_up[i][0]]
+            rec_dict["Ingreds"] = ingred_series[runners_up[i][0]]
+            result.append(rec_dict)
+
+        return result
 
     except KeyError:
         return 'Ingredient not recognized... sorry :('
