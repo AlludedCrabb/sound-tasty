@@ -141,8 +141,8 @@ def sound_tasty(word_vec_model, ingred_series, title_series):
             comp_list = ingre_list[:20]
             print("I'll get you food similar to what you're used too")
         elif user_input == "medium":
-            comp_list = ingre_list([round(len(ingre_list)/2):
-                                    round(len(ingre_list)/2)+20])
+            middle = round(len(ingre_list)/2)
+            comp_list = ingre_list[middle : (middle + 20)]
 
             print("I'll get you food sort of like what you're used too")
         elif user_input == "high":

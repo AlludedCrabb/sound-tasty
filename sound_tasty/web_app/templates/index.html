@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <script type="text/javascript" src="brython.js"></script>
+  <script type="text/javascript" src="brython_stdlib.js"></script>
+
+  <title>Bare - Start Bootstrap Template</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body onload="brython(1)">
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+      <!-- <a class="navbar-brand" href="#">Start Bootstrap</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+        </ul>
+      </div> -->
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h1 class="mt-5">Sound Tasty?</h1>
+        <p class="lead">Tell me ingredients you like and 
+          how adventurous you're feeling.
+          I'll help you find your next meal!
+        </p>
+        <!-- <ul class="list-unstyled">
+          <li>Bootstrap 4.3.1</li>
+          <li>jQuery 3.4.1</li>
+        </ul> -->
+        <script type="text/python3">
+          from browser import document, ajax
+          import json
+          import warnings
+    
+          def show_results(response):
+              if response.status==200 or response.status==0:
+                  document["result"].html = response.text
+              else:
+                  warnings.warn(response.text)
+    
+          def get_prediction(ev):
+              """Get the predicted probability."""
+              req = ajax.ajax()
+              req.bind('complete', show_results)
+              req.open('POST', '/predict', True)
+              req.set_header('content-type','application/json')
+              data = json.dumps(({'user_input' + str(i):
+               document['user_input' + str(i)].value for i in [1,2,3,4,5]}))
+              req.send(data)
+    
+          document["predict_button"].bind("click", get_prediction)
+        </script>
+        <textarea id="user_input1">Ingredient!</textarea>
+        <textarea id="user_input2">Ingredient?</textarea>
+        <textarea id="user_input3">Ingredient...</textarea>
+        <textarea id="user_input4">Ingredient.</textarea>
+        <textarea id="user_input5">Low, Medium, or High?</textarea>
+        <button id="predict_button">Predict!</button>
+        <div id="result"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.slim.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
+
+<!-- 
+<html>
+  <head>
+    <title>Predict</title>
+    <script type="text/javascript" src="brython.js"></script>
+    <script type="text/javascript" src="brython_stdlib.js"></script>
+  </head>
+  <body onload="brython(1)">
+    <script type="text/python3">
+      from browser import document, ajax
+      import json
+      import warnings
+
+      def show_results(response):
+          if response.status==200 or response.status==0:
+              document["result"].html = response.text
+          else:
+              warnings.warn(response.text)
+
+      def get_prediction(ev):
+          """Get the predicted probability."""
+          req = ajax.ajax()
+          req.bind('complete', show_results)
+          req.open('POST', '/predict', True)
+          req.set_header('content-type','application/json')
+          data = json.dumps({'user_input': document['user_input'].value})
+          req.send(data)
+
+      document["predict_button"].bind("click", get_prediction)
+    </script>
+    <textarea id="user_input"></textarea>
+    <button id="predict_button">Predict!</button>
+    <div id="result"></div>
+  </body>
+</html> -->
