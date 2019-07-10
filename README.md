@@ -1,22 +1,21 @@
-# New-food-recommender:
-People need to eat, and there's so much variety in the available options! The problem is people don't always know what they like or don't like until they try it. The point of this New-food-recommender is to hopefully help people find new foods they like
+# Sound Tasty?
+People need to eat, and there's so much variety in the available options! The problem is people don't always know what they like or don't like until they try it. The point of Sound Tasty is to hopefully help people find new foods they like.
 
 ## The Data
-I'll be using various cooking and recipe sites to get data about various foods
+I Used Selenium to scrape around 900 recipes from Allrecipes.com, approximately 100 from each catagory.
+<img src="Allrecipes.png">
 
 ## The Plan
-I'll be building a database of recipe ingredients and cooking styles through webscraping, then I'll build a recommendation system based on the user's current food preferences.
+To build a food recommendation system based off of flavors people like. Ask the user for ingredients they like, then find similar ingredients and recommend recipes that have those similar ingredients.
 
 ## The Preperation
-(I have not yet done any data cleaning or other preperation tasks. Stay tuned!)
+I cleaned the recipe data by removing amounts and measures, cooking stop words, and some brand names. I also split the ingredients into individual words to prepare for modeling.
 
 ## The Modeling
-I plan on using ALS recommendations based on user item's similarity to other items
+I used Gensim to vectorize the ingredient words, then return recipes that contain ingredients with similar vectors to the input words.
 
 ## The Results
-(We'll find out soon. Stay tuned!)
+I deployed the final model to a flask app which you can find <a href=http://52.13.18.187/>here</a>.
 
 ### Next steps
-
-
-### Where credit is due:
+The small amount of data means that there are many ingredients and recipes Sound Tasty doesn't know. The next steps would include gathering more recipes to expand it's knowledge. As well as improving the data cleaning process to allow for multi-word ingredients.
