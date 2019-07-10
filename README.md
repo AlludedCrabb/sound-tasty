@@ -12,10 +12,10 @@ To build a food recommendation system based off of flavors people like. Ask the 
 I cleaned the recipe data by removing amounts and measures, cooking stop words, and some brand names. I also split the ingredients into individual words to prepare for modeling.
 
 ## The Modeling
-I used Gensim to vectorize the ingredient words, then return recipes that contain ingredients with similar vectors to the input words.
+I used Gensim's word2vec to vectorize the ingredient words, then return recipes that contain ingredients with similar vectors to the input words. I also included an "adventure" input that takes in either low, medium, or high, which will change the ingredient vectors used for recipe recommendation to the 20 most similar, the 20 vectors halfway similar, or the 20 least similar vectors, respectively.
 
 ## The Results
 I deployed the final model to a flask app which you can find <a href=http://52.13.18.187/>here</a>.
 
-### Next steps
+## Next steps
 The small amount of data means that there are many ingredients and recipes Sound Tasty doesn't know. The next steps would include gathering more recipes to expand its knowledge. As well as improving the data cleaning process to allow for multi-word ingredients.
