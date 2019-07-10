@@ -60,7 +60,7 @@ def sound_tasty(word_vec_model,
             topn=100000)
             )
 
-        user_input = adventure
+        user_input = adventure.lower()
         print('\n')
 
         if user_input == "low":
