@@ -120,42 +120,45 @@ def ingred_series_compare(ingredient_series, compare_list):
     return indices_of_recipes
 
 
-def sound_tasty(word_vec_model, ingred_series, title_series):
+def sound_tasty(word_vec_model,
+                ingred_series,
+                title_series,
+                ingred_1=None,
+                ingred_2=None,
+                ingred_3=None,
+                ingred_4=None,
+                adventure="low"):
     """Recommend recipes based on ingredient similarity"""
     import random
 
+    ingred_1 = input().lower().split()
+    ingred_2 = input().lower().split()
+    ingred_3 = input().lower().split()
+    ingred_4 = input().lower().split()
+    bad_ingreds = []
     try:
         ingre_list = parse_ingred_tuples(word_vec_model.wv.most_similar(
-            positive=[input('Choose an ingredient: ').lower(),
-                      input('Choose another: ').lower(),
-                      input('And another: ').lower(),
-                      input('Last one: ').lower()],
+            positive=(ingred_1 +
+                      ingred_2 +
+                      ingred_3 +
+                      ingred_4),
             topn=100000)
             )
 
-        user_input = input("""How adventurous are you feeling?
-            low, medium, or high? """)
-        print('\n')
+        user_input = adventure.lower()
 
         if user_input == "low":
             comp_list = ingre_list[:20]
-            print("I'll get you food similar to what you're used too")
+
         elif user_input == "medium":
             middle = round(len(ingre_list)/2)
-            comp_list = ingre_list[middle : (middle + 20)]
+            comp_list = ingre_list[middle:(middle + 20)]
 
-            print("I'll get you food sort of like what you're used too")
         elif user_input == "high":
             comp_list = ingre_list[-20:]
-            print("I'll get food pretty different from what you're used too")
-        else:
-            print("that's not an option: defaulting to 'low' ")
-            comp_list = ingre_list[:20]
 
-        print('\n\n\n',
-              'Ingredients like yours:',
-              '\n\n',
-              comp_list)
+        else:
+            comp_list = ingre_list[:20]
 
         count_me = ingred_series_compare(ingred_series, comp_list)
 
@@ -174,50 +177,19 @@ def sound_tasty(word_vec_model, ingred_series, title_series):
                 if x is not high_value[0]:
                     runners_up.append((x, ingred_count_dict[x]))
 
-        responses = ["Not good enough hmm? let me try again.",
-                     "You're picky aren't you?",
-                     "It sounds like you already know what you want",
-                     "Are you serious? gosh... fine!",
-                     "Mmmm, you look tasty",
-                     "Any objections to eating brains?",
-                     "You could always order a pizza.",
-                     "I've heard interest rates are on the move. Thoughts?",
-                     "Don't skip leg day.",
-                     "YOU CAN'T HANDLE THE TRUTH!",
-                     "Maybe a churro? Who doesn't love churros?",
-                     "I've got a dark and mysterious past.",
-                     "In another life, they called me... Tim"]
+        result = []
 
-        print('\n\n',
-              "How about? ",
-              "\n\n",
-              title_series[high_value[0]],
-              '\n\n',
-              ingred_series[high_value[0]],
-              '\n\n\n\n')
-        if input('Sound tasty? yes/no: ') == "yes":
-            pass
-        else:
-            print('\n\n',
-                  "Fine, I'll find you something else. You're welcome.",
-                  '\n\n')
-            if len(runners_up) == 0:
-                print("I got nothing.")
-            for i in range(len(runners_up)):
-                print('\n\n',
-                      "How about? "
-                      '\n\n',
-                      title_series[runners_up[i][0]],
-                      '\n\n',
-                      ingred_series[runners_up[i][0]],
-                      '\n\n\n\n')
+        rec_dict = {"Title" :title_series[high_value[0]],
+                    "Ingreds" : ingred_series[high_value[0]]}
+        result.append(rec_dict)
 
-                if input('Sound tasty? yes/no: ') == "yes":
-                    break
-                else:
-                    print('\n\n')
-                    choice = random.choice(responses)
-                    print(choice)
+        for i in range(len(runners_up)):
+            rec_dict = {}
+            rec_dict["Title"] = title_series[runners_up[i][0]]
+            rec_dict["Ingreds"] = ingred_series[runners_up[i][0]]
+            result.append(rec_dict)
 
-    except KeyError:
-        print('Ingredient not recognized... sorry :(')
+        return result
+
+    except KeyError as x:
+        return x

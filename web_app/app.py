@@ -61,7 +61,6 @@ def sound_tasty(word_vec_model,
             )
 
         user_input = adventure.lower()
-        print('\n')
 
         if user_input == "low":
             comp_list = ingre_list[:20]
@@ -107,8 +106,9 @@ def sound_tasty(word_vec_model,
 
         return result
 
-    except KeyError:
-        return 'Ingredient not recognized... sorry :('
+    except KeyError as x:
+        return str(x)
+
 
 
 @app.route('/predict', methods=['GET', 'POST'])
