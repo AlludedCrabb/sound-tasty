@@ -43,20 +43,17 @@ def ingred_series_compare(ingredient_series, compare_list):
 def sound_tasty(word_vec_model,
                 ingred_series,
                 title_series,
-                ingred_1,
-                ingred_2,
-                ingred_3,
-                ingred_4,
+                ing_1,
+                ing_2,
+                ing_3,
+                ing_4,
                 adventure="low"):
     """Recommend recipes based on ingredient similarity"""
     import random
-
+    ingred_input = [x.lower() for x in [ing_1, ing_2, ing_3, ing_4] if x != '']
     try:
         ingre_list = parse_ingred_tuples(word_vec_model.wv.most_similar(
-            positive=(ingred_1.lower().split() +
-                      ingred_2.lower().split() +
-                      ingred_3.lower().split() +
-                      ingred_4.lower().split()),
+            positive=(ingred_input),
             topn=100000)
             )
 

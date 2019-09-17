@@ -64,7 +64,10 @@ def lst_clean_cooking_stop_words(string_list):
         'lump', 'uncooked', 'cube', 'bits', 'hair', 'angel', 'trimmed',
         'stew', 'spaghetti', 'brisket', 'bitesized', 'matchstick', 'Chobani',
         'unbaked', 'crust', 'torn', 'bonein', 'pounded', 'bitesize',
-        'granules', 'boiling', 'yolk', 'coloring',
+        'granules', 'boiling', 'yolk', 'coloring', 'pinch', 'a', 'blender',
+        'fine', 'which', 'extralarge', 'use', 'will', 'make', 'garnish',
+        'barely', 'moistened', 'about', 'right', 'before', 'serving', 'mix',
+        
     ]
 
     cleaned_items = []
@@ -108,6 +111,13 @@ def parse_ingred_tuples(tupp_list):
         sim_ingreds.append(tupp_list[i][0])
     return sim_ingreds
 
+def lower_list_strings(list_object):
+        
+    low_words = []
+    for word in list_object:
+        low_words.append(word.lower())
+    return low_words
+
 
 def ingred_series_compare(ingredient_series, compare_list):
     """Check if each list in a series of lists contains specific words"""
@@ -131,17 +141,15 @@ def sound_tasty(word_vec_model,
     """Recommend recipes based on ingredient similarity"""
     import random
 
-    ingred_1 = input().lower().split()
-    ingred_2 = input().lower().split()
-    ingred_3 = input().lower().split()
-    ingred_4 = input().lower().split()
-    bad_ingreds = []
+    ing_1 = input()
+    ing_2 = input()
+    ing_3 = input()
+    ing_4 = input()
+    ingred_input = [x.lower() for x in [ing_1, ing_2, ing_3, ing_4] if x != '']
+    
     try:
         ingre_list = parse_ingred_tuples(word_vec_model.wv.most_similar(
-            positive=(ingred_1 +
-                      ingred_2 +
-                      ingred_3 +
-                      ingred_4),
+            positive=(ingred_input),
             topn=100000)
             )
 
