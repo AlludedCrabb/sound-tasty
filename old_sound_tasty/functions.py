@@ -67,7 +67,7 @@ def lst_clean_cooking_stop_words(string_list):
         'granules', 'boiling', 'yolk', 'coloring', 'pinch', 'a', 'blender',
         'fine', 'which', 'extralarge', 'use', 'will', 'make', 'garnish',
         'barely', 'moistened', 'about', 'right', 'before', 'serving', 'mix',
-        
+
     ]
 
     cleaned_items = []
@@ -111,8 +111,9 @@ def parse_ingred_tuples(tupp_list):
         sim_ingreds.append(tupp_list[i][0])
     return sim_ingreds
 
+
 def lower_list_strings(list_object):
-        
+
     low_words = []
     for word in list_object:
         low_words.append(word.lower())
@@ -146,7 +147,7 @@ def sound_tasty(word_vec_model,
     ing_3 = input()
     ing_4 = input()
     ingred_input = [x.lower() for x in [ing_1, ing_2, ing_3, ing_4] if x != '']
-    
+
     try:
         ingre_list = parse_ingred_tuples(word_vec_model.wv.most_similar(
             positive=(ingred_input),
@@ -187,8 +188,8 @@ def sound_tasty(word_vec_model,
 
         result = []
 
-        rec_dict = {"Title" :title_series[high_value[0]],
-                    "Ingreds" : ingred_series[high_value[0]]}
+        rec_dict = {"Title": title_series[high_value[0]],
+                    "Ingreds": ingred_series[high_value[0]]}
         result.append(rec_dict)
 
         for i in range(len(runners_up)):
