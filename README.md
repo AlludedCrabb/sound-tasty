@@ -18,4 +18,4 @@ I used Gensim's word2vec to vectorize the ingredient words, then return recipes 
 I deployed the final model to a flask app which you can find <a href=http:tasty.dsi.link>here</a>.
 
 ## Next steps
-The small amount of data means that there are many ingredients and recipes Sound Tasty doesn't know. The next steps would include gathering more recipes to expand its knowledge, adding features like flavor or ingredient removal, finding local vendors that have those flavors, and so on. And so on.
+The small amount of data means that there are many ingredients and recipes Sound Tasty doesn't know. The next steps would include gathering more recipes to expand its knowledge, adding features like flavor or ingredient removal, finding local vendors that have those flavors, and so on.
